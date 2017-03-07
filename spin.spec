@@ -14,7 +14,7 @@ BuildRequires:	maven-local
 BuildRequires:	mvn(cglib:cglib)
 BuildRequires:	mvn(junit:junit)
 BuildRequires:	mvn(org.apache.maven.plugins:maven-assembly-plugin)
-BuildRequires:	11-server-xvfb
+BuildRequires:	x11-server-xvfb
 
 %description
 Transparent threading solution for non-freezing Swing applications.
@@ -52,13 +52,6 @@ find . -name "*.class" -delete
 	<version>any</version>" .
 %pom_xpath_inject "pom:plugin[pom:artifactId[./text()='maven-assembly-plugin']]" "
 	<version>any</version>" .
-
-# Drop tests requiring a running X11 server
-%pom_add_plugin :maven-surefire-plugin . "<configuration>
-	<excludes>
-		<!--exclude>**/JDKProxyFactoryTest.java</exclude-->
-	</excludes>
-</configuration>"
 
 # Fix jar-not-indexed warning
 %pom_add_plugin :maven-jar-plugin . "<configuration>
